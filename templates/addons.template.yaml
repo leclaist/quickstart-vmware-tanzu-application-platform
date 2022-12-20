@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  AWS CloudFormation template for addons
+Resources:
+  EBSSCIAddon:
+    Type: AWS::EKS::Addon
+    Properties:
+      AddonName: aws-ebs-csi-driver
+      # TODO: figure out if version should be an input parameter or default
+      # AddonVersion: v1.12.1-eksbuild.1
+      ClusterName: cluster-eks-tap
+      # Allowed values: NONE | OVERWRITE | PRESERVE
+      ResolveConflicts: NONE
+      ServiceAccountRoleArn: arn:aws:iam::149022829075:role/AmazonEKS_EBS_CSI_DriverRole

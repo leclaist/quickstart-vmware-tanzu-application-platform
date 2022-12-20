@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  AWS CloudFormation template for roles
+Resources:
+  EBSSCIRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument: !Sub
+        - |
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Principal": {
+                  "Federated": "arn:aws:iam::149022829075:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/AF7CD45A4EB93320072560052B72C8E6"
+                },
+                "Action": "sts:AssumeRoleWithWebIdentity",
+                "Condition": {
+                  "StringEquals": {
+                    "oidc.eks.us-east-1.amazonaws.com/id/AF7CD45A4EB93320072560052B72C8E6:aud": "sts.amazonaws.com",
+                    "oidc.eks.us-east-1.amazonaws.com/id/AF7CD45A4EB93320072560052B72C8E6:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+                  }
+                }
+              }
+            ]
+          }
+        - IamOidcProviderArn: arn:aws:iam::149022829075:oidc-provider
+          OidcProviderEndpoint: https://oidc.eks.us-east-1.amazonaws.com/id/AF7CD45A4EB93320072560052B72C8E6
+        # - IamOidcProviderArn: !Sub arn:aws:iam::${AWS::AccountId}:oidc-provider
+        #   OidcProviderEndpoint: !Select [1, !Split ["//", !GetAtt BUILDEKSQSStack.Outputs.OIDCIssuerURL]]
+      Description: >-
+        VMware Tanzu Application Platform role for EBSSCI Driver.
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy
+      RoleName: AmazonEKS_EBS_CSI_DriverRole
