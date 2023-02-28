@@ -129,7 +129,7 @@
 
 |`EKSClusterName`
 |EKS cluster name
-|
+|`cluster-eks-tap`
 |Name of the EKS cluster where {partner-product-acronym} deploys.
 
 |`NodeInstanceType`
@@ -170,7 +170,7 @@
 
 |`QSS3KeyPrefix`
 |Key prefix
-|
+|`quickstart-vmware-tanzu-application-platform/`
 |S3 key prefix that is used to simulate a directory for your copy of the Partner Solution assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Partner Solution location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). End with a forward slash. For more information, refer to https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html and https://aws-quickstart.github.io/option1.html.
 |====
 
