@@ -6,8 +6,8 @@ For troubleshooting common Partner Solution issues, refer to the https://fwd.aws
 
 Refer to the following resources to troubleshoot {partner-product-name}.
 
-* https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-troubleshooting-tap-troubleshoot-install-tap.html[Troubleshoot installing {partner-product-short-name}^]
-* https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.3/tap/GUID-troubleshooting-tap-troubleshoot-using-tap.html[Troubleshoot using {partner-product-short-name}^]
+* https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/troubleshooting-tap-troubleshoot-install-tap.html[Troubleshoot installing {partner-product-short-name}^]
+* https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/troubleshooting-tap-troubleshoot-using-tap.html[Troubleshoot using {partner-product-short-name}^]
 
 === I can't access the {partner-product-short-name} user interface
 
@@ -33,7 +33,7 @@ The following issues can cause you to not be able to access the {partner-product
 
 === {partner-product-short-name} installation failed with a EULA error
 
-You must accept the relevant EULAs before you can download the {partner-product-short-name} packages from the {partner-registry}. For more information, refer to https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.2/tap/GUID-install-tanzu-cli.html#accept-the-end-user-license-agreements-0[Accept the End User License Agreements^].
+You must accept the relevant EULAs before you can download the {partner-product-short-name} packages from the {partner-registry}. For more information, refer to https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/install-tanzu-cli.html#accept-the-end-user-license-agreements-0[Accept the End User License Agreements^].
 
 For more details about the `+.status.usefulErrorMessage+` error, connect to the Linux bastion host using SSH. Then run the following commands. For `<PACKAGE-NAME>`, substitute the name of the package to target.
 
@@ -89,3 +89,34 @@ Verify that an RSA key pair used during deployment. If not, try the following op
 * Customize the CloudFormation template to use a separate key pair for the Windows bastion host. Then update the CloudFormation stack. This option only replaces the Windows bastion host instance. Instructions for implementing this are beyond the scope of this guide.
 
 * https://aws.amazon.com/contact-us/[Contact AWS technical support^].
+
+
+== Release Notes [[release-notes]]
+
+// git log --reverse origin/main...v1.4.0 -- ':!/ci/'
+
+// Changelog links
+:tap-1_4_1-cl: https://docs.vmware.com/en/VMware-Tanzu-Application-Platform/1.4/tap/release-notes.html#v141-0
+:ce-1_4_1-cl: https://docs.vmware.com/en/Cluster-Essentials-for-VMware-Tanzu/1.4/cluster-essentials/release-notes.html#v141-0
+:eks-1_24-cl: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html#kubernetes-1.24
+:eksqs-5_0_0-cl: https://github.com/aws-quickstart/quickstart-amazon-eks/releases/tag/v5.0.0
+
+* Version 1.4.1
+** The stack reports back if the TAP deployment and the installation of the
+   sample application succeeded after all the infrastructure has been deployed
+** Deletion issues, where VPCs could not be cleaned up because of left-over
+   security groups, has been fixed
+** Version upgrades to:
+*** {tap-1_4_1-cl}[{partner-product-acronym}^] 1.4.1
+*** {ce-1_4_1-cl}[ClusterEssentials^] 1.4
+*** {eksqs-5_0_0-cl}[EKS QuickStart^] 5.0.0
+*** {eks-1_24-cl}[EKS^] 1.24
+** Removed configuration options for:
+*** Version of {partner-product-short-name}
+*** Version of EKS
+*** Linux Bastion host AMI
+*** Linux Bastion host's SSH port
+*** sample application name
+** Download of artifacts (e.g. `kubectl`) has been fixed for regions other than `us-east-1`
+* Version 1.4.0
+** Multi cluster architecture has been introduced
